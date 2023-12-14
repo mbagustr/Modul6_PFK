@@ -1,0 +1,33 @@
+from PIL import Image, ImageDraw, ImageFont
+from IPython.display import display
+
+# Langkah 1: Buka gambar menggunakan Pillow
+gambar_path = "sample_data/up.jpg"
+gambar = Image.open(gambar_path)
+
+# Langkah 2: Ubah gambar menjadi hitam-putih (grayscale)
+gambar_grayscale = gambar.convert("L")
+
+# Langkah 3: Tambahkan teks dengan font Arial dan ukuran 24
+nama_nim = "Nama: M Bagus Triyadi\nNIM: 202110370311347"
+font_path = "sample_data/arial.ttf"
+font = ImageFont.truetype(font_path, 24)
+
+draw = ImageDraw.Draw(gambar_grayscale)
+
+# Hitung lebar dan tinggi teks nama dan NIM
+nama_nim_width, nama_nim_height = draw.textsize(nama_nim, font)
+
+# Hitung posisi teks nama
+nama_x = (gambar_grayscale.width - nama_nim_width) // 2
+nama_y = (gambar_grayscale.height - nama_nim_height) // 2
+
+# Gambar teks nama dan NIM
+draw.text((nama_x, nama_y), nama_nim, font=font, fill=255)
+
+# Langkah 4: Simpan gambar hasil edit
+gambar_hasil_path = "sample_data/percobaan_satu.jpg"
+gambar_grayscale.save(gambar_hasil_path)
+
+# Langkah 5: Tampilkan hasil pengolahan gambar
+display(gambar_grayscale)
